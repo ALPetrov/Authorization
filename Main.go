@@ -15,7 +15,7 @@ type tableUser struct {
 }
 
 func main() {
-	db, err := sql.Open("mysql", "root:Lozin3992ka@/testbd")
+	db, err := sql.Open("mysql", "root:password@/testbd")
 
 	if err != nil {
 		panic(err)
