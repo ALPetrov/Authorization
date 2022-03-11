@@ -1,8 +1,6 @@
 package main
 
 import (
-	req "./request"
-	"./funcAdd"
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
@@ -17,13 +15,6 @@ type tableUser struct {
 }
 
 func main() {
-
-	req.Hello()
-
-	funcAdd.Add()
-
-
-
 	db, err := sql.Open("mysql", "root:Lozin3992ka@/testbd")
 
 	if err != nil {
@@ -31,17 +22,11 @@ func main() {
 	}
 	defer db.Close()
 
-
-
-	//request.Insert()
-	
-	//result, err := db.Exec("insert into testbd.user (name, lastName,
-	//login, password, deleted)
-	//values ('Aleks', 'Piatrou', 'PetAL', '12345', 'No')")
-	//if err != nil {
-	//	panic(err)
-	//}
-	//fmt.Println(result.RowsAffected())
+	result, err := db.Exec("insert into testbd.user (name, lastName, login, password, deleted) values ('Aleks', 'Piatrou', 'PetAL', '12345', 'No')")
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(result.RowsAffected())
 
 	rows, err := db.Query("select * from testbd.user")
 	if err != nil {
@@ -60,8 +45,6 @@ func main() {
 		users = append(users, p)
 	}
 	for _, p := range users {
-
 		fmt.Println(p.name, p.lastName, p.login, p.password, p.deleted)
 	}
-
 }
