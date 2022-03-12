@@ -1,7 +1,7 @@
-package funcAdd
+package funcadd
 
-import
-"fmt"
+import "fmt"
+
 func Hello() {
 	fmt.Println("hello aleks")
 }

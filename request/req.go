@@ -1,10 +1,12 @@
 package request
+
 import(
 	"fmt"
 
 	//"database/sql"
 	//_ "github.com/go-sql-driver/mysql"
 )
+
 func Goodbye() {
 	fmt.Println("Goodbye Aleks")
 }

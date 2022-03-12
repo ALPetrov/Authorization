@@ -2,7 +2,7 @@ package main
 
 import (
 	"./request"
-	"./funcAdd"
+	"./funcadd"
 	"database/sql"
 	"fmt"
 	_ "github.com/go-sql-driver/mysql"
@@ -20,7 +20,7 @@ func main() {
 
 	request.Goodbye()
 
-	funcAdd.Hello()
+	funcadd.Hello()
 
 
 
@@ -31,10 +31,7 @@ func main() {
 	}
 	defer db.Close()
 
-
-
-	//request.Insert()
-	
+		
 	//result, err := db.Exec("insert into testbd.user (name, lastName,
 	//login, password, deleted)
 	//values ('Aleks', 'Piatrou', 'PetAL', '12345', 'No')")
