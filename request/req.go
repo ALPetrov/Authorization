@@ -1,12 +1,12 @@
-package req
+package request
 import(
 	"fmt"
 
 	//"database/sql"
 	//_ "github.com/go-sql-driver/mysql"
 )
-func Hello() {
-	fmt.Println("Привет Aleks")
+func Goodbye() {
+	fmt.Println("Goodbye Aleks")
 }
 
 //func Insert() {

@@ -1,7 +1,7 @@
 package main
 
 import (
-	req "./request"
+	"./request"
 	"./funcAdd"
 	"database/sql"
 	"fmt"
@@ -18,9 +18,9 @@ type tableUser struct {
 
 func main() {
 
-	req.Hello()
+	request.Goodbye()
 
-	funcAdd.Add()
+	funcAdd.Hello()
 
 
 

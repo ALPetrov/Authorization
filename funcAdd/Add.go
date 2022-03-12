@@ -2,6 +2,6 @@ package funcAdd
 
 import
 "fmt"
-func Add() {
+func Hello() {
 	fmt.Println("hello aleks")
 }
