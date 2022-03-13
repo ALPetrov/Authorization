@@ -1,7 +1,7 @@
 package main
 
 import (
-	"authorization/request"
+	"./request"
 	"./funcadd"
 	"database/sql"
 	"fmt"
