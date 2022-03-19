@@ -1,50 +1,28 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
-	_ "github.com/go-sql-driver/mysql"
+	"log"
+	"net/http"
 )
 
-type tableUser struct {
-	name     string
-	lastName string
-	login    string
-	password string
-	deleted  string
-}
+	func main() {
 
-func main() {
-	db, err := sql.Open("mysql", "root:password@/testbd")
+	http.HandleFunc("/", mainPage)
+	
+	port := ":8080"
+	fmt.Println("Port open", port)
+
+	err := http.ListenAndServe(port, nil)
 
 	if err != nil {
-		panic(err)
-	}
-	defer db.Close()
-
-	result, err := db.Exec("insert into testbd.user (name, lastName, login, password, deleted) values ('Aleks', 'Piatrou', 'PetAL', '12345', 'No')")
-	if err != nil {
-		panic(err)
-	}
-	fmt.Println(result.RowsAffected())
-
-	rows, err := db.Query("select * from testbd.user")
-	if err != nil {
-		panic(err)
-	}
-	defer rows.Close()
-	users := []tableUser{}
-
-	for rows.Next() {
-		p := tableUser{}
-		err := rows.Scan(&p.name, &p.lastName, &p.login, &p.password, &p.deleted)
-		if err != nil {
-			fmt.Println(err)
-			continue
-		}
-		users = append(users, p)
-	}
-	for _, p := range users {
-		fmt.Println(p.name, p.lastName, p.login, p.password, p.deleted)
+		log.Fatal("ListenAndServe", err)
 	}
 }
+func mainPage(w http.ResponseWriter, r *http.Request ) {
+	w.Write([]byte("Hello"))
+}
+
+
+
+
