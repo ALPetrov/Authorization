@@ -25,17 +25,14 @@ type query struct {
 }
 
 func main() {
-a := query{
-	name: "A3",
-	lastName: "P3",
-	login: "AP3",
-	password: "3",
+
+	a := query{
+	name: "A4",
+	lastName: "P4",
+	login: "AP4",
+	password: "4",
 	deleted: "No", 
 }
-
-fmt.Println(a)
-	//request.Goodbye()
-	//funcadd.Hello()
 	
 	db, err := sql.Open("mysql", "root:Lozin3992ka@/testbd")
 
@@ -44,8 +41,9 @@ fmt.Println(a)
 	}
 	defer db.Close()
 
-	query := fmt.Sprintf("insert into testbd.table1 (name, lastName,login, password, deleted) values (%s, %s, %s, %s, %s)", a.name, a.lastName, a.login, a.password, a.deleted)
-	result, err := db.Exec(query)
+	query := "insert into testbd.table1 (name, lastName,login, password, deleted) values (?, ?, ?, ?, ?)"
+	result, err := db.Exec(query, a.name, a.lastName, a.login, a.password, a.deleted)
+
 	if err != nil {
 		panic(err)
 	}
@@ -58,7 +56,6 @@ fmt.Println(a)
 	defer rows.Close()
 
 	users := []tableUser{}
-
 
 	for rows.Next() {
 		p := tableUser{}
