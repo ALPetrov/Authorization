@@ -32,9 +32,9 @@ func main() {
 	login: "AP4",
 	password: "4",
 	deleted: "No", 
-}
+	}
 	
-	db, err := sql.Open("mysql", "root:Lozin3992ka@/testbd")
+	db, err := sql.Open("mysql", "user:mysql2@/tcp(86.57.217.99:3306)/testbd")
 
 	if err != nil {
 		panic(err)
