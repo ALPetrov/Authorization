@@ -1,28 +1,42 @@
 package main
 
 import (
-	"fmt"
+    "fmt"
 	"log"
 	"net/http"
+    
 )
 
-	func main() {
+func main() {
+	fileServer := http.FileServer(http.Dir("./static"))
+    http.Handle("/", fileServer) 
+	http.HandleFunc("/form", formHandler)
+	http.HandleFunc("/hello", helloHandler)
 
-	http.HandleFunc("/", mainPage)
-	
-	port := ":8080"
-	fmt.Println("Port open", port)
-
-	err := http.ListenAndServe(port, nil)
-
-	if err != nil {
-		log.Fatal("ListenAndServe", err)
-	}
+fmt.Printf("Starting server at port 8080\n")
+    if err := http.ListenAndServe(":8080", nil); err != nil {
+	       log.Fatal(err) 
+	}    
 }
-func mainPage(w http.ResponseWriter, r *http.Request ) {
-	w.Write([]byte("Hello"))
+func formHandler(w http.ResponseWriter, r *http.Request) {
+    if err := r.ParseForm(); err != nil {
+        fmt.Fprintf(w, "ParseForm() err: %v", err)
+        return
+    }
+    fmt.Fprintf(w, "POST request successful   ")
+    login := r.FormValue("login")
+     password:= r.FormValue("password")
+    fmt.Fprintf(w, "Login = %s\n", login)
+    fmt.Fprintf(w, "Password = %s\n", password)
 }
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+    if r.URL.Path != "/" {
+        http.Error(w, "404 not conection.", http.StatusNotFound)
+        return
+    }
 
-
-
-
+    if r.Method != "GET" {
+        http.Error(w, "Method is not supported.", http.StatusNotFound)
+        return
+    }
+}
