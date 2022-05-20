@@ -14,14 +14,12 @@ type tableUser struct {
 	lastName string
 	login    string
 	password string
-	deleted  string
 }
 type query struct {
 	name  string
 	lastName string
 	login    string
 	password string
-	deleted  string
 }
 
 func main() {
@@ -31,25 +29,24 @@ func main() {
 	lastName: "P4",
 	login: "AP4",
 	password: "4",
-	deleted: "No", 
 	}
 	
-	db, err := sql.Open("mysql", "user:mysql2@/tcp(86.57.217.99:3306)/testbd")
+	db, err := sql.Open("mysql", "root:mysql57@/mydb")
 
 	if err != nil {
 		panic(err)
 	}
 	defer db.Close()
 
-	query := "insert into testbd.table1 (name, lastName,login, password, deleted) values (?, ?, ?, ?, ?)"
-	result, err := db.Exec(query, a.name, a.lastName, a.login, a.password, a.deleted)
+	query := "insert into mydb.user (name, lastName,login, password) values (?, ?, ?, ?)"
+	result, err := db.Exec(query, a.name, a.lastName, a.login, a.password)
 
 	if err != nil {
 		panic(err)
 	}
 	fmt.Println(result.LastInsertId())
 
-	rows, err := db.Query("SELECT * FROM testbd.table1")
+	rows, err := db.Query("SELECT * FROM mydb.user")
 	if err != nil {
 		panic(err)
 	}
@@ -60,7 +57,7 @@ func main() {
 	for rows.Next() {
 		p := tableUser{}
 		
-		err := rows.Scan(&p.id, &p.name, &p.lastName, &p.login, &p.password, &p.deleted)
+		err := rows.Scan(&p.id, &p.name, &p.lastName, &p.login, &p.password)
 		if err != nil {
 			fmt.Println(err)
 			continue
@@ -70,6 +67,6 @@ func main() {
 
 	for _, p := range users {
 
-		fmt.Println(p.id, p.name, p.lastName, p.login, p.password, p.deleted)
+		fmt.Println(p.id, p.name, p.lastName, p.login, p.password)
 	}
 }
